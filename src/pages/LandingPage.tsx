@@ -6,8 +6,9 @@ import Features from '../components/Features';
 import Footer from '../components/Footer';
 import { useTheme } from '../hooks/useTheme';
 
-// Import your video background
+// Import your video, logo, and styles
 import videoBackground from '../assets/Minimalist Yoga Registration Landing Page (1).mp4';
+import SoulLogo from '../assets/Screenshot_2024-03-03_120833-removebg-preview.png';
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -32,14 +33,17 @@ const LandingPage: React.FC = () => {
         Your browser does not support the video tag.
       </video>
 
-      {/* Transparent Navbar */}
+      {/* Transparent Navbar with Logo */}
       <div className="relative z-10 flex items-center justify-end px-8 py-4 bg-transparent">
+        <div className="absolute left-8 flex items-center">
+          <img src={SoulLogo} alt="Soul Logo" className="w-10 h-10 mr-2" />
+        </div>
         <Navbar />
       </div>
 
-      {/* Centered "soul" Text with Glow Effect */}
+      {/* Centered "soul" Text with Glowing Border */}
       <div className="absolute inset-0 flex items-center justify-center z-10">
-        <h1 className="text-8xl md:text-9xl font-bold text-transparent border border-blue-400 animate-glow-effect">
+        <h1 className="text-8xl md:text-9xl font-bold text-transparent animate-glow border border-blue-400 px-2 py-2 rounded-lg">
           soul
         </h1>
       </div>
@@ -62,7 +66,7 @@ const LandingPage: React.FC = () => {
               >
                 Get Started
               </button>
-              <button className="px-8 py-4 bg-gray-600 text-white rounded-full transition-transform transform hover:scale-105 shadow-lg">
+              <button className="px-8 py-4 bg-gray-700 hover:bg-gray-800 text-white rounded-full transition-transform transform hover:scale-105 shadow-lg">
                 Learn More
               </button>
             </div>
@@ -87,14 +91,14 @@ const LandingPage: React.FC = () => {
               </button>
             </div>
           </section>
-
-          {/* Footer with Copyright */}
-          <Footer>
-            <div className="text-center py-4 text-white/70 text-sm">
-              © 2024 Soul. All rights reserved.
-            </div>
-          </Footer>
         </main>
+
+        {/* Footer with Copyright */}
+        <Footer>
+          <div className="text-center py-4 text-white/70 text-sm">
+            © 2024 Soul. All rights reserved.
+          </div>
+        </Footer>
       </div>
     </div>
   );
