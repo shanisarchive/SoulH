@@ -9,7 +9,7 @@ import { useTheme } from '../hooks/useTheme';
 
 // Import your video and logo
 import videoBackground from '../assets/Minimalist Yoga Registration Landing Page (1).mp4';
-import SoulLogo from '../assets/Screenshot_2024-03-03_120833-removebg-preview.png'; // Update this with the exact logo filename
+import SoulLogo from '../assets/Screenshot_2024-03-03_120833-removebg-preview.png';
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -34,32 +34,36 @@ const LandingPage: React.FC = () => {
         Your browser does not support the video tag.
       </video>
 
-      {/* Overlay Content */}
-      <div className="relative z-10">
-        <Navbar />
-        
-        {/* Centered Logo */}
-        <div className="flex items-center justify-center mt-16 mb-10">
-          <img src={SoulLogo} alt="Soul Health Logo" className="w-40 h-40 md:w-64 md:h-64 opacity-90" />
+      {/* Navbar with Transparent Background */}
+      <div className="relative z-10 flex items-center justify-between px-8 py-4 bg-transparent">
+        <div className="flex items-center">
+          <img src={SoulLogo} alt="Soul Logo" className="w-10 h-10 mr-2" />
+          <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-blue-500 animate-glow">
+            soul
+          </h1>
         </div>
+        <Navbar />
+      </div>
 
-        <main className="px-4">
+      {/* Main Content */}
+      <div className="relative z-10 text-center text-white">
+        <main className="px-4 mt-20">
           {/* Hero Section */}
-          <section className="text-center text-white mb-10">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <section className="text-center mb-10">
+            <h1 className="text-5xl md:text-6xl font-bold mb-4 text-white animate-fade-in">
               Empower Your Health Journey with AI-Driven Insights
             </h1>
-            <p className="text-lg md:text-xl text-white/80 mb-6">
+            <p className="text-xl md:text-2xl text-white/80 mb-8 animate-fade-in-delay">
               Experience a revolutionary approach to wellness, powered by advanced AI and secure, client-side processing for complete privacy.
             </p>
             <div className="flex justify-center gap-4">
               <button
                 onClick={handleGetStarted}
-                className="px-8 py-4 bg-rose-500 hover:bg-rose-600 text-white rounded-full transition-transform transform hover:scale-105"
+                className="px-8 py-4 bg-rose-500 hover:bg-rose-600 text-white rounded-full transition-transform transform hover:scale-105 shadow-lg animate-pulse"
               >
                 Get Started
               </button>
-              <button className="px-8 py-4 bg-white/10 text-white rounded-full transition-transform transform hover:scale-105">
+              <button className="px-8 py-4 bg-white/10 text-white rounded-full transition-transform transform hover:scale-105 shadow-lg">
                 Learn More
               </button>
             </div>
