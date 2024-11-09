@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Glow effect for "soul" text */
+/* Glowing Border Effect for "soul" Text */
 @keyframes glow {
   0%, 100% {
     text-shadow: 0 0 8px rgba(99, 179, 237, 0.8), 0 0 20px rgba(99, 179, 237, 0.6);
@@ -12,14 +12,14 @@
   }
 }
 
-.animate-glow-glow-effect {
+.animate-glow-effect {
   animation: glow 2s ease-in-out infinite;
   color: transparent;
   border-radius: 8px;
   border-width: 2px;
 }
 
-/* Smooth fade-in effect */
+/* Fade-in Animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -34,8 +34,31 @@
   opacity: 0;
 }
 
-/* Transparent navbar */
+/* Button Colors */
+.bg-blue-600 {
+  background-color: #1D4ED8; /* Consistent Blue Color */
+}
+
+.bg-blue-700 {
+  background-color: #1E40AF;
+}
+
+.bg-gray-600 {
+  background-color: #374151;
+}
+
 .bg-transparent {
   background: transparent !important;
   border-bottom: none;
+}
+
+/* Footer Styling */
+footer {
+  background-color: transparent;
+  padding: 1rem;
+  text-align: center;
+}
+
+footer .text-white/70 {
+  color: rgba(255, 255, 255, 0.7);
 }
