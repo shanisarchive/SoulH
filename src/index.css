@@ -12,11 +12,14 @@
   }
 }
 
-.animate-glow {
+.animate-glow-glow-effect {
   animation: glow 2s ease-in-out infinite;
+  color: transparent;
+  border-radius: 8px;
+  border-width: 2px;
 }
 
-/* Smooth fade-in effect for sections */
+/* Smooth fade-in effect */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -31,7 +34,7 @@
   opacity: 0;
 }
 
-/* Remove background and border line from navbar */
+/* Transparent navbar */
 .bg-transparent {
   background: transparent !important;
   border-bottom: none;
