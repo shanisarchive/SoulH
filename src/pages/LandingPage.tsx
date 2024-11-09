@@ -1,140 +1,113 @@
-// In LandingPage.tsx (or LandingPage.js if using plain JavaScript)
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sun, Moon, Sunrise, Sunset, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Features from '../components/Features';
 import Footer from '../components/Footer';
-import WeatherBackground from '../components/WeatherBackground';
 import { useTheme } from '../hooks/useTheme';
 
-// Import your video file
+// Import your video and logo
 import videoBackground from '../assets/Minimalist Yoga Registration Landing Page (1).mp4';
+import SoulLogo from '../assets/Screenshot_2024-03-03_120833-removebg-preview.png'; // Update this with the exact logo filename
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
-  const { timeOfDay, weather, styles } = useTheme();
-
-  const TimeIcon = {
-    dawn: Sunrise,
-    day: Sun,
-    dusk: Sunset,
-    night: Moon
-  }[timeOfDay];
+  const { timeOfDay, styles } = useTheme();
 
   const handleGetStarted = () => {
     navigate('/auth');
   };
 
   return (
-    <div className={`relative min-h-screen ${styles.background} transition-colors duration-1000`}>
-      {/* Video Background */}
+    <div className="relative min-h-screen">
+      {/* Full-Screen Fixed Video Background */}
       <video
         autoPlay
         loop
         muted
         playsInline
         className="absolute inset-0 w-full h-full object-cover z-0"
+        style={{ position: 'fixed' }}
       >
         <source src={videoBackground} type="video/mp4" />
-        {/* Provide a fallback if the video format is unsupported */}
         Your browser does not support the video tag.
       </video>
 
-      <WeatherBackground />
-
-      {/* Main Content */}
+      {/* Overlay Content */}
       <div className="relative z-10">
         <Navbar />
-        <main>
+        
+        {/* Centered Logo */}
+        <div className="flex items-center justify-center mt-16 mb-10">
+          <img src={SoulLogo} alt="Soul Health Logo" className="w-40 h-40 md:w-64 md:h-64 opacity-90" />
+        </div>
+
+        <main className="px-4">
           {/* Hero Section */}
-          <Hero TimeIcon={TimeIcon} />
+          <section className="text-center text-white mb-10">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              Empower Your Health Journey with AI-Driven Insights
+            </h1>
+            <p className="text-lg md:text-xl text-white/80 mb-6">
+              Experience a revolutionary approach to wellness, powered by advanced AI and secure, client-side processing for complete privacy.
+            </p>
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={handleGetStarted}
+                className="px-8 py-4 bg-rose-500 hover:bg-rose-600 text-white rounded-full transition-transform transform hover:scale-105"
+              >
+                Get Started
+              </button>
+              <button className="px-8 py-4 bg-white/10 text-white rounded-full transition-transform transform hover:scale-105">
+                Learn More
+              </button>
+            </div>
+          </section>
 
           {/* Features Section */}
           <Features />
 
           {/* Privacy Promise Section */}
-          <section className="py-20 px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 animate-fade-in">
-                Your Privacy is Our Priority
-              </h2>
-              <p className="text-xl text-white/80 mb-8 animate-fade-in-delay">
-                All data processing happens on your device. Zero backend, zero server-side 
-                processing, complete privacy guaranteed.
+          <section className="py-20 px-4 bg-black/60 rounded-lg shadow-lg mx-4 mb-10">
+            <div className="max-w-4xl mx-auto text-center text-white">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Your Privacy is Our Priority</h2>
+              <p className="text-lg text-white/80 mb-8">
+                All data processing happens on your device. Zero backend, zero server-side processing, complete privacy guaranteed.
               </p>
               <button
                 onClick={handleGetStarted}
-                className="group inline-flex items-center px-8 py-4 bg-white/10 hover:bg-white/20 
-                         text-white rounded-full transition-all transform hover:scale-105"
+                className="inline-flex items-center px-8 py-4 bg-blue-600/70 hover:bg-blue-700 text-white rounded-full transition-all transform hover:scale-105"
               >
                 Learn About Our Privacy
-                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="ml-2" />
               </button>
             </div>
           </section>
 
           {/* WHO Standards Section */}
-          <section className="py-20 px-4 bg-white/5 backdrop-blur-md">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 animate-fade-in">
-                WHO-Standard Health Insights
-              </h2>
-              <p className="text-xl text-white/80 mb-8 animate-fade-in-delay">
-                Experience precision health monitoring with insights powered by World Health 
-                Organization standards and guidelines.
+          <section className="py-20 px-4 bg-white/10 backdrop-blur-md rounded-lg shadow-lg mx-4 mb-10">
+            <div className="max-w-4xl mx-auto text-center text-white">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">WHO-Standard Health Insights</h2>
+              <p className="text-lg text-white/80 mb-8">
+                Experience precision health monitoring with insights powered by World Health Organization standards and guidelines.
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
-                  {
-                    title: 'Evidence-Based',
-                    description: 'Health insights backed by WHO research and guidelines'
-                  },
-                  {
-                    title: 'Global Standards',
-                    description: 'Adherence to international health monitoring protocols'
-                  },
-                  {
-                    title: 'Regular Updates',
-                    description: 'Latest health guidelines and recommendations'
-                  }
+                  { title: 'Evidence-Based', description: 'Health insights backed by WHO research and guidelines' },
+                  { title: 'Global Standards', description: 'Adherence to international health monitoring protocols' },
+                  { title: 'Regular Updates', description: 'Latest health guidelines and recommendations' },
                 ].map((item, index) => (
-                  <div
-                    key={index}
-                    className="p-6 bg-white/10 backdrop-blur-md rounded-xl hover:bg-white/20 
-                             transition-all transform hover:scale-105"
-                  >
-                    <h3 className="text-xl font-semibold text-white mb-3">{item.title}</h3>
+                  <div key={index} className="p-6 bg-blue-900/70 rounded-xl hover:bg-blue-700/80 transition-transform transform hover:scale-105">
+                    <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
                     <p className="text-white/80">{item.description}</p>
                   </div>
                 ))}
               </div>
             </div>
           </section>
-
-          {/* CTA Section */}
-          <section className="py-20 px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 animate-fade-in">
-                Start Your Wellness Journey Today
-              </h2>
-              <p className="text-xl text-white/80 mb-8 animate-fade-in-delay">
-                Join thousands of users who have transformed their approach to health and 
-                wellbeing with Soul Health.
-              </p>
-              <button
-                onClick={handleGetStarted}
-                className="group px-8 py-4 bg-rose-500 hover:bg-rose-600 text-white 
-                         rounded-full transition-all transform hover:scale-105 
-                         flex items-center justify-center mx-auto"
-              >
-                Get Started Now
-                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
-          </section>
         </main>
+
         <Footer />
       </div>
     </div>
