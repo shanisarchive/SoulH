@@ -1,3 +1,3 @@
 # SoulH
 
-[Edit in StackBlitz next generation editor ⚡️](https://stackblitz.com/~/github.com/shanisarchive/SoulH)
+Ah cheptha le tondara enduku
