@@ -12,7 +12,7 @@
   }
 }
 
-.animate-glow-effect {
+.animate-glow {
   animation: glow 2s ease-in-out infinite;
   color: transparent;
   border-radius: 8px;
@@ -34,19 +34,24 @@
   opacity: 0;
 }
 
-/* Button Colors */
+/* Button Colors for Consistency */
 .bg-blue-600 {
-  background-color: #1D4ED8; /* Consistent Blue Color */
+  background-color: #1D4ED8;
 }
 
 .bg-blue-700 {
   background-color: #1E40AF;
 }
 
-.bg-gray-600 {
+.bg-gray-700 {
   background-color: #374151;
 }
 
+.bg-gray-800 {
+  background-color: #1F2937;
+}
+
+/* Transparent Navbar */
 .bg-transparent {
   background: transparent !important;
   border-bottom: none;
