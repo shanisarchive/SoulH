@@ -6,9 +6,8 @@ import Features from '../components/Features';
 import Footer from '../components/Footer';
 import { useTheme } from '../hooks/useTheme';
 
-// Import your video and logo
+// Import your video background
 import videoBackground from '../assets/Minimalist Yoga Registration Landing Page (1).mp4';
-import SoulLogo from '../assets/Screenshot_2024-03-03_120833-removebg-preview.png';
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -33,23 +32,20 @@ const LandingPage: React.FC = () => {
         Your browser does not support the video tag.
       </video>
 
-      {/* Navbar with Transparent Background */}
-      <div className="relative z-10 flex items-center justify-between px-8 py-4 bg-transparent">
-        <div className="flex items-center">
-          <img src={SoulLogo} alt="Soul Logo" className="w-14 h-14" />
-        </div>
+      {/* Transparent Navbar */}
+      <div className="relative z-10 flex items-center justify-end px-8 py-4 bg-transparent">
         <Navbar />
       </div>
 
       {/* Centered "soul" Text with Glow Effect */}
       <div className="absolute inset-0 flex items-center justify-center z-10">
-        <h1 className="text-6xl md:text-8xl font-bold text-transparent border border-blue-400 animate-glow-glow-effect">
+        <h1 className="text-8xl md:text-9xl font-bold text-transparent border border-blue-400 animate-glow-effect">
           soul
         </h1>
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 text-center text-white">
+      <div className="relative z-10 text-center text-white mt-20">
         <main className="px-4 mt-32">
           {/* Hero Section */}
           <section className="text-center mb-10">
@@ -62,11 +58,11 @@ const LandingPage: React.FC = () => {
             <div className="flex justify-center gap-4">
               <button
                 onClick={handleGetStarted}
-                className="px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white rounded-full transition-transform transform hover:scale-105 shadow-lg animate-pulse"
+                className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-transform transform hover:scale-105 shadow-lg"
               >
                 Get Started
               </button>
-              <button className="px-8 py-4 bg-gray-700/50 text-white rounded-full transition-transform transform hover:scale-105 shadow-lg">
+              <button className="px-8 py-4 bg-gray-600 text-white rounded-full transition-transform transform hover:scale-105 shadow-lg">
                 Learn More
               </button>
             </div>
@@ -84,16 +80,21 @@ const LandingPage: React.FC = () => {
               </p>
               <button
                 onClick={handleGetStarted}
-                className="inline-flex items-center px-8 py-4 bg-blue-600/70 hover:bg-blue-700 text-white rounded-full transition-all transform hover:scale-105"
+                className="inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-all transform hover:scale-105"
               >
                 Learn About Our Privacy
                 <ArrowRight className="ml-2" />
               </button>
             </div>
           </section>
-        </main>
 
-        <Footer />
+          {/* Footer with Copyright */}
+          <Footer>
+            <div className="text-center py-4 text-white/70 text-sm">
+              © 2024 Soul. All rights reserved.
+            </div>
+          </Footer>
+        </main>
       </div>
     </div>
   );
