@@ -1,3 +1,4 @@
+// In LandingPage.tsx (or LandingPage.js if using plain JavaScript)
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Sun, Moon, Sunrise, Sunset, ArrowRight } from 'lucide-react';
@@ -7,6 +8,9 @@ import Features from '../components/Features';
 import Footer from '../components/Footer';
 import WeatherBackground from '../components/WeatherBackground';
 import { useTheme } from '../hooks/useTheme';
+
+// Import your video file
+import videoBackground from '../assets/Minimalist Yoga Registration Landing Page (1).mp4';
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -24,8 +28,23 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className={`min-h-screen ${styles.background} transition-colors duration-1000`}>
+    <div className={`relative min-h-screen ${styles.background} transition-colors duration-1000`}>
+      {/* Video Background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        <source src={videoBackground} type="video/mp4" />
+        {/* Provide a fallback if the video format is unsupported */}
+        Your browser does not support the video tag.
+      </video>
+
       <WeatherBackground />
+
+      {/* Main Content */}
       <div className="relative z-10">
         <Navbar />
         <main>
