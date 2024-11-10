@@ -8,12 +8,15 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="absolute w-full top-0 z-20">
+    <nav className="fixed top-0 w-full z-20 bg-transparent">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          {/* Updated Transparent Header with Larger Logo */}
+          {/* Updated Logo Alignment */}
           <Link to="/" className="flex items-center space-x-2">
-            <img src={SoulLogo} alt="Soul Logo" className="w-16 h-16" />
+            <img src={SoulLogo} alt="Soul Logo" className="w-20 h-20" /> {/* Increased logo size */}
+            <span className="text-3xl font-bold bg-gradient-to-r from-rose-500 to-purple-600 text-transparent bg-clip-text">
+              Soul
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -24,7 +27,7 @@ const Navbar = () => {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden p-2 rounded-md text-white"
+            className="md:hidden p-2 rounded-md text-gray-100 hover:bg-white/10"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -49,8 +52,8 @@ const Navbar = () => {
 
 const NavLinks = ({ mobile }: { mobile?: boolean }) => {
   const baseStyles = mobile
-    ? "block px-3 py-2 rounded-md text-white"
-    : "text-white hover:text-opacity-80 transition-colors";
+    ? "block px-3 py-2 rounded-md text-white hover:bg-white/10"
+    : "text-gray-100 hover:text-white transition-colors";
 
   return (
     <>
