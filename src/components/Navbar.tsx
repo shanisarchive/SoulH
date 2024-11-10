@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heart, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import SoulLogo from '../assets/Screenshot_2024-03-03_120833-removebg-preview.png';
 
@@ -8,11 +8,11 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="bg-transparent">
+    <nav className="bg-transparent fixed top-0 w-full z-10">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          {/* Logo instead of text */}
-          <Link to="/" className="flex items-center space-x-2">
+          {/* Logo on the Left */}
+          <Link to="/" className="flex items-center">
             <img src={SoulLogo} alt="Soul Logo" className="h-10 w-10" /> {/* Adjust logo size as needed */}
           </Link>
 
@@ -22,7 +22,7 @@ const Navbar = () => {
             <AuthButtons navigate={navigate} />
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <button
             className="md:hidden p-2 rounded-md text-gray-100 hover:bg-white/10"
             onClick={() => setIsOpen(!isOpen)}
