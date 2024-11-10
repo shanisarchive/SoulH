@@ -19,7 +19,7 @@
   border-width: 2px;
 }
 
-/* Fade-in Animation */
+/* Fade-in Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -34,7 +34,12 @@
   opacity: 0;
 }
 
-/* Button Colors */
+.animate-fade-in-delay-2 {
+  animation: fadeIn 1s ease-out 0.6s forwards;
+  opacity: 0;
+}
+
+/* Button Colors for Consistency */
 .bg-blue-600 {
   background-color: #1D4ED8;
 }
@@ -49,21 +54,4 @@
 
 .bg-gray-800 {
   background-color: #1F2937;
-}
-
-/* Transparent Navbar */
-.bg-transparent {
-  background: transparent !important;
-  border-bottom: none;
-}
-
-/* Footer Styling */
-footer {
-  background-color: transparent;
-  padding: 1rem;
-  text-align: center;
-}
-
-footer .text-white/70 {
-  color: rgba(255, 255, 255, 0.7);
 }
