@@ -19,17 +19,25 @@ const Hero: React.FC<HeroProps> = ({ TimeIcon }) => {
   };
 
   return (
-    <div className="py-20 text-center">
-      <div className="max-w-4xl mx-auto px-4">
+    <div className="py-20 text-center relative">
+      {/* Centered "soul" Text with Glowing Border */}
+      <div className="absolute top-0 w-full flex justify-center items-center pt-10 z-10">
+        <h1 className="text-6xl md:text-7xl font-bold text-transparent animate-glow border border-blue-400 px-4 py-2 rounded-lg">
+          soul
+        </h1>
+      </div>
+
+      {/* Main Hero Content */}
+      <div className="max-w-4xl mx-auto px-4 mt-24">
         <div className="flex justify-center mb-8">
           <TimeIcon className="h-16 w-16 text-white animate-pulse" />
         </div>
         
-        <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 animate-fade-in">
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 animate-fade-in">
           Empower Your Health Journey with AI-Driven Insights
         </h1>
         
-        <p className="text-xl text-white/80 mb-12 animate-fade-in-delay">
+        <p className="text-lg md:text-xl text-white/80 mb-12 animate-fade-in-delay">
           Experience a revolutionary approach to wellness, powered by advanced AI and secure, 
           client-side processing for complete privacy.
         </p>
@@ -37,7 +45,7 @@ const Hero: React.FC<HeroProps> = ({ TimeIcon }) => {
         <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-delay-2">
           <button
             onClick={handleGetStarted}
-            className="group px-8 py-4 bg-rose-500 hover:bg-rose-600 text-white 
+            className="group px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white 
                      rounded-full transition-all transform hover:scale-105 
                      flex items-center justify-center"
           >
@@ -46,7 +54,7 @@ const Hero: React.FC<HeroProps> = ({ TimeIcon }) => {
           </button>
           <button
             onClick={handleLearnMore}
-            className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white 
+            className="px-8 py-4 bg-gray-700 hover:bg-gray-800 text-white 
                      rounded-full transition-all transform hover:scale-105"
           >
             Learn More
