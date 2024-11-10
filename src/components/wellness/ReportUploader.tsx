@@ -1,70 +1,16 @@
 import React, { useState } from 'react';
 import { Upload, FileText, Check, AlertCircle } from 'lucide-react';
-import pdfParse from 'pdf-parse';
 
 const ReportUploader = () => {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [analyzing, setAnalyzing] = useState(false);
-  const [analysisResult, setAnalysisResult] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    setError(null);
-    setAnalysisResult(null);
     setUploadedFiles([...uploadedFiles, ...files]);
     setAnalyzing(true);
-
-    for (const file of files) {
-      if (file.type !== 'application/pdf') {
-        setError("Only PDF files are allowed.");
-        continue;
-      }
-
-      try {
-        const arrayBuffer = await file.arrayBuffer();
-        const text = await pdfParse(arrayBuffer);
-
-        if (isMedicalReport(text)) {
-          const reportAnalysis = analyzeMedicalReport(text);
-          setAnalysisResult(reportAnalysis);
-          saveToLocalDatabase(file.name, reportAnalysis);
-        } else {
-          setError("Invalid report. Please upload a valid medical report.");
-        }
-      } catch (err) {
-        setError("Failed to process the PDF. Please try again.");
-      }
-    }
-
-    setAnalyzing(false);
-  };
-
-  const isMedicalReport = (text: string): boolean => {
-    // Look for medical keywords commonly found in medical reports
-    const medicalKeywords = [
-      "Haemoglobin", "RBC", "WBC", "Glomerular Filtration Rate", 
-      "Electrolytes", "Uric Acid", "Creatinine", "Chlorides", 
-      "Sodium", "Potassium"
-    ];
-
-    return medicalKeywords.some(keyword => text.includes(keyword));
-  };
-
-  const analyzeMedicalReport = (text: string): string => {
-    // Dummy analysis: Look for values and provide a sample summary
-    const findings = [];
-    if (text.includes("Haemoglobin")) findings.push("Haemoglobin within range.");
-    if (text.includes("RBC")) findings.push("RBC levels are adequate.");
-    if (text.includes("WBC")) findings.push("WBC count normal.");
-
-    return findings.length > 0 ? findings.join("\n") : "No abnormalities detected.";
-  };
-
-  const saveToLocalDatabase = (fileName: string, reportAnalysis: string) => {
-    const currentReports = JSON.parse(localStorage.getItem("reports") || "[]");
-    const newReport = { fileName, analysis: reportAnalysis, date: new Date().toISOString() };
-    localStorage.setItem("reports", JSON.stringify([...currentReports, newReport]));
+    // Simulate analysis delay
+    setTimeout(() => setAnalyzing(false), 2000);
   };
 
   const removeFile = (index: number) => {
@@ -83,7 +29,7 @@ const ReportUploader = () => {
             <input
               type="file"
               className="hidden"
-              accept=".pdf"
+              accept=".pdf,.jpg,.png,.doc,.docx"
               multiple
               onChange={handleFileUpload}
             />
@@ -97,15 +43,23 @@ const ReportUploader = () => {
       {uploadedFiles.length > 0 && (
         <div className="space-y-4">
           {uploadedFiles.map((file, index) => (
-            <div key={index} className="bg-white border rounded-lg p-4 flex items-center justify-between">
+            <div
+              key={index}
+              className="bg-white border rounded-lg p-4 flex items-center justify-between"
+            >
               <div className="flex items-center space-x-3">
                 <FileText className="h-6 w-6 text-gray-400" />
                 <div>
                   <p className="font-medium text-gray-900">{file.name}</p>
-                  <p className="text-sm text-gray-500">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                  <p className="text-sm text-gray-500">
+                    {(file.size / 1024 / 1024).toFixed(2)} MB
+                  </p>
                 </div>
               </div>
-              <button onClick={() => removeFile(index)} className="text-gray-400 hover:text-gray-600">
+              <button
+                onClick={() => removeFile(index)}
+                className="text-gray-400 hover:text-gray-600"
+              >
                 <AlertCircle className="h-5 w-5" />
               </button>
             </div>
@@ -120,7 +74,7 @@ const ReportUploader = () => {
         </div>
       )}
 
-      {analysisResult && !analyzing && (
+      {uploadedFiles.length > 0 && !analyzing && (
         <div className="bg-white border rounded-lg p-6">
           <div className="flex items-center space-x-2 mb-4">
             <Check className="h-5 w-5 text-green-500" />
@@ -129,15 +83,13 @@ const ReportUploader = () => {
           <div className="space-y-4">
             <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
               <p className="text-green-800">Key Findings:</p>
-              <p className="text-green-700">{analysisResult}</p>
+              <ul className="mt-2 space-y-1 list-disc list-inside text-green-700">
+                <li>All vital signs within normal range</li>
+                <li>No significant abnormalities detected</li>
+                <li>Regular follow-up recommended</li>
+              </ul>
             </div>
           </div>
-        </div>
-      )}
-
-      {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <p className="text-red-700">{error}</p>
         </div>
       )}
     </div>
