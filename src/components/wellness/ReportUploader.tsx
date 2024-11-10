@@ -1,46 +1,20 @@
 import React, { useState } from 'react';
-import pdfParse from 'pdf-parse';
 import { Upload, FileText, Check, AlertCircle } from 'lucide-react';
 
 const ReportUploader = () => {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [analyzing, setAnalyzing] = useState(false);
-  const [analysisResult, setAnalysisResult] = useState<string | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const isMedicalReport = (text: string): boolean => {
-    const keywords = ['CBC', 'Complete Blood Count', 'Hemoglobin', 'WBC', 'RBC', 'Platelets', 'Report'];
-    return keywords.some(keyword => text.includes(keyword));
-  };
-
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
     setUploadedFiles([...uploadedFiles, ...files]);
     setAnalyzing(true);
-    setErrorMessage(null);
-
-    for (const file of files) {
-      if (file.type === 'application/pdf') {
-        const arrayBuffer = await file.arrayBuffer();
-        const pdfData = await pdfParse(arrayBuffer);
-        const textContent = pdfData.text;
-
-        if (isMedicalReport(textContent)) {
-          setAnalysisResult('Key Findings:\n- All vital signs within normal range\n- No significant abnormalities detected\n- Regular follow-up recommended');
-        } else {
-          setErrorMessage('Please upload a valid medical report.');
-        }
-      } else {
-        setErrorMessage('Only PDF files are supported for analysis.');
-      }
-    }
-    setAnalyzing(false);
+    // Simulate analysis delay
+    setTimeout(() => setAnalyzing(false), 2000);
   };
 
   const removeFile = (index: number) => {
     setUploadedFiles(uploadedFiles.filter((_, i) => i !== index));
-    setAnalysisResult(null);
-    setErrorMessage(null);
   };
 
   return (
@@ -55,13 +29,13 @@ const ReportUploader = () => {
             <input
               type="file"
               className="hidden"
-              accept=".pdf"
+              accept=".pdf,.jpg,.png,.doc,.docx"
               multiple
               onChange={handleFileUpload}
             />
           </label>
           <p className="mt-2 text-sm text-gray-500">
-            Upload medical reports in PDF format only.
+            Upload medical reports, test results, or prescriptions
           </p>
         </div>
       </div>
@@ -100,21 +74,22 @@ const ReportUploader = () => {
         </div>
       )}
 
-      {analysisResult && !analyzing && (
+      {uploadedFiles.length > 0 && !analyzing && (
         <div className="bg-white border rounded-lg p-6">
           <div className="flex items-center space-x-2 mb-4">
             <Check className="h-5 w-5 text-green-500" />
             <h3 className="text-lg font-semibold text-gray-900">Analysis Complete</h3>
           </div>
-          <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-            <p className="text-green-800">{analysisResult}</p>
+          <div className="space-y-4">
+            <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+              <p className="text-green-800">Key Findings:</p>
+              <ul className="mt-2 space-y-1 list-disc list-inside text-green-700">
+                <li>All vital signs within normal range</li>
+                <li>No significant abnormalities detected</li>
+                <li>Regular follow-up recommended</li>
+              </ul>
+            </div>
           </div>
-        </div>
-      )}
-
-      {errorMessage && !analyzing && (
-        <div className="bg-white border border-red-200 rounded-lg p-4 text-red-600">
-          <p>{errorMessage}</p>
         </div>
       )}
     </div>
