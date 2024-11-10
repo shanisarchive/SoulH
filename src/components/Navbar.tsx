@@ -8,15 +8,12 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="fixed top-0 w-full z-20 bg-transparent">
+    <nav className="fixed top-4 w-full z-20 bg-transparent"> {/* Slightly lowered to `top-4` */}
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          {/* Updated Logo Alignment */}
+        <div className="flex justify-between items-center h-20"> {/* Adjusted for a taller header */}
+          {/* Larger Logo with Removed Text */}
           <Link to="/" className="flex items-center space-x-2">
-            <img src={SoulLogo} alt="Soul Logo" className="w-20 h-20" /> {/* Increased logo size */}
-            <span className="text-3xl font-bold bg-gradient-to-r from-rose-500 to-purple-600 text-transparent bg-clip-text">
-              Soul
-            </span>
+            <img src={SoulLogo} alt="Soul Logo" className="w-28 h-28" /> {/* Increased to `w-28 h-28` for a slightly larger logo */}
           </Link>
 
           {/* Desktop Navigation */}
@@ -47,43 +44,6 @@ const Navbar = () => {
         </div>
       )}
     </nav>
-  );
-};
-
-const NavLinks = ({ mobile }: { mobile?: boolean }) => {
-  const baseStyles = mobile
-    ? "block px-3 py-2 rounded-md text-white hover:bg-white/10"
-    : "text-gray-100 hover:text-white transition-colors";
-
-  return (
-    <>
-      {["Home", "Features", "Pricing", "About", "Contact Us"].map((item) => (
-        <a key={item} href={`#${item.toLowerCase()}`} className={baseStyles}>
-          {item}
-        </a>
-      ))}
-    </>
-  );
-};
-
-const AuthButtons = ({ mobile, navigate }: { mobile?: boolean, navigate: (path: string) => void }) => {
-  const containerStyles = mobile ? "space-y-2" : "space-x-4";
-  
-  return (
-    <div className={containerStyles}>
-      <button 
-        onClick={() => navigate('/auth')}
-        className="px-4 py-2 text-white hover:bg-white/10 rounded-md transition-colors"
-      >
-        Log In
-      </button>
-      <button 
-        onClick={() => navigate('/auth')}
-        className="px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white rounded-md transition-colors"
-      >
-        Sign Up
-      </button>
-    </div>
   );
 };
 
