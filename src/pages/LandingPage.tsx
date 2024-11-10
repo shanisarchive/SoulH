@@ -6,7 +6,7 @@ import Features from '../components/Features';
 import Footer from '../components/Footer';
 import { useTheme } from '../hooks/useTheme';
 
-// Import your video background
+// Import your video and logo
 import videoBackground from '../assets/311876098316009475.mp4';
 
 const LandingPage: React.FC = () => {
@@ -32,27 +32,25 @@ const LandingPage: React.FC = () => {
         Your browser does not support the video tag.
       </video>
 
-      {/* Sticky Navbar */}
-      <div className="sticky top-0 z-10">
-        <Navbar /> {/* Navbar now includes the logo and stays at the top while scrolling */}
-      </div>
+      {/* Transparent Navbar */}
+      <Navbar />
 
       {/* Centered "soul" Text with Glow Effect Above Hero Section */}
-      <div className="absolute top-1/4 w-full flex justify-center z-10">
-        <h1 className="text-6xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400 animate-glow px-4 py-2 rounded-lg border border-transparent shadow-lg">
+      <div className="absolute top-1/3 w-full flex justify-center z-10">
+        <h1 className="text-8xl font-bold text-white opacity-90">
           soul
         </h1>
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 text-center text-white mt-20">
-        <main className="px-4 mt-32">
+      <div className="relative z-10 text-center text-white mt-40">
+        <main className="px-4 mt-12">
           {/* Hero Section */}
           <section className="text-center mb-10">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white animate-fade-in">
+            <h1 className="text-5xl font-bold mb-4 animate-fade-in">
               Empower Your Health Journey with AI-Driven Insights
             </h1>
-            <p className="text-lg md:text-xl text-white/80 mb-8 animate-fade-in-delay">
+            <p className="text-lg text-white/80 mb-8 animate-fade-in-delay">
               Experience a revolutionary approach to wellness, powered by advanced AI and secure, client-side processing for complete privacy.
             </p>
             <div className="flex justify-center gap-4">
@@ -74,8 +72,8 @@ const LandingPage: React.FC = () => {
           {/* Privacy Promise Section */}
           <section className="py-20 px-4 bg-black/60 rounded-lg shadow-lg mx-4 mb-10">
             <div className="max-w-4xl mx-auto text-center text-white">
-              <h2 className="text-2xl md:text-3xl font-bold mb-6">Your Privacy is Our Priority</h2>
-              <p className="text-base md:text-lg text-white/80 mb-8">
+              <h2 className="text-2xl font-bold mb-6">Your Privacy is Our Priority</h2>
+              <p className="text-base text-white/80 mb-8">
                 All data processing happens on your device. Zero backend, zero server-side processing, complete privacy guaranteed.
               </p>
               <button
