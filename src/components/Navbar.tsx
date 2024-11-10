@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import { Heart, Menu, X } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import SoulLogo from '../assets/Screenshot_2024-03-03_120833-removebg-preview.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   return (
-    <nav className="bg-white/10 backdrop-blur-md border-b border-white/20">
+    <nav className="bg-transparent">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
+          {/* Logo instead of text */}
           <Link to="/" className="flex items-center space-x-2">
-            <Heart className="h-8 w-8 text-rose-500 animate-pulse" />
-            <span className="text-2xl font-bold bg-gradient-to-r from-rose-500 to-purple-600 text-transparent bg-clip-text">
-              Soul Health
-            </span>
+            <img src={SoulLogo} alt="Soul Logo" className="h-10 w-10" /> {/* Adjust logo size as needed */}
           </Link>
 
           {/* Desktop Navigation */}
@@ -35,7 +34,7 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="md:hidden bg-white/10 backdrop-blur-md">
+        <div className="md:hidden bg-transparent">
           <div className="px-2 pt-2 pb-3 space-y-1">
             <NavLinks mobile />
             <div className="pt-4">
