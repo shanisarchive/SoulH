@@ -1,92 +1,90 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
-import Navbar from '../components/Navbar';
-import Features from '../components/Features';
-import Footer from '../components/Footer';
-import { useTheme } from '../hooks/useTheme';
-import videoBackground from '../assets/311876098316009475.mp4';
+import React, { useState } from 'react';
+import { Menu, X } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import SoulLogo from '../assets/Screenshot_2024-03-03_120833-removebg-preview.png';
 
-const LandingPage: React.FC = () => {
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  const { timeOfDay, styles } = useTheme();
-
-  const handleGetStarted = () => {
-    navigate('/auth');
-  };
 
   return (
-    <div className="relative min-h-screen">
-      {/* Full-Screen Fixed Video Background */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        style={{ position: 'fixed' }}
-      >
-        <source src={videoBackground} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+    <nav className="fixed top-0 w-full z-20 bg-transparent">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center h-16">
+          {/* Updated Logo Alignment */}
+          <Link to="/" className="flex items-center space-x-2">
+            <img src={SoulLogo} alt="Soul Logo" className="w-20 h-20" /> {/* Increased logo size */}
+            <span className="text-3xl font-bold bg-gradient-to-r from-rose-500 to-purple-600 text-transparent bg-clip-text">
+              Soul
+            </span>
+          </Link>
 
-      {/* Fixed Navbar */}
-      <Navbar />
-
-      {/* Main Content Positioned Below the Navbar */}
-      <div className="relative z-10 text-center text-white pt-24"> {/* Added padding */}
-        <main className="px-4 mt-16">
-          {/* Hero Section */}
-          <section className="text-center mb-10">
-            <h1 className="text-5xl font-bold mb-4 animate-fade-in">
-              Empower Your Health Journey with AI-Driven Insights
-            </h1>
-            <p className="text-lg text-white/80 mb-8 animate-fade-in-delay">
-              Experience a revolutionary approach to wellness, powered by advanced AI and secure, client-side processing for complete privacy.
-            </p>
-            <div className="flex justify-center gap-4">
-              <button
-                onClick={handleGetStarted}
-                className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-transform transform hover:scale-105 shadow-lg"
-              >
-                Get Started
-              </button>
-              <button className="px-8 py-4 bg-gray-700 hover:bg-gray-800 text-white rounded-full transition-transform transform hover:scale-105 shadow-lg">
-                Learn More
-              </button>
-            </div>
-          </section>
-
-          {/* Features Section */}
-          <Features />
-
-          {/* Privacy Promise Section */}
-          <section className="py-20 px-4 bg-black/60 rounded-lg shadow-lg mx-4 mb-10">
-            <div className="max-w-4xl mx-auto text-center text-white">
-              <h2 className="text-2xl font-bold mb-6">Your Privacy is Our Priority</h2>
-              <p className="text-base text-white/80 mb-8">
-                All data processing happens on your device. Zero backend, zero server-side processing, complete privacy guaranteed.
-              </p>
-              <button
-                onClick={handleGetStarted}
-                className="inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-all transform hover:scale-105"
-              >
-                Learn About Our Privacy
-                <ArrowRight className="ml-2" />
-              </button>
-            </div>
-          </section>
-        </main>
-
-        {/* Footer with Copyright */}
-        <Footer>
-          <div className="text-center py-4 text-white/70 text-sm">
-            © 2024 Soul. All rights reserved.
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            <NavLinks />
+            <AuthButtons navigate={navigate} />
           </div>
-        </Footer>
+
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden p-2 rounded-md text-gray-100 hover:bg-white/10"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Navigation */}
+      {isOpen && (
+        <div className="md:hidden bg-white/10 backdrop-blur-md">
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            <NavLinks mobile />
+            <div className="pt-4">
+              <AuthButtons mobile navigate={navigate} />
+            </div>
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+};
+
+const NavLinks = ({ mobile }: { mobile?: boolean }) => {
+  const baseStyles = mobile
+    ? "block px-3 py-2 rounded-md text-white hover:bg-white/10"
+    : "text-gray-100 hover:text-white transition-colors";
+
+  return (
+    <>
+      {["Home", "Features", "Pricing", "About", "Contact Us"].map((item) => (
+        <a key={item} href={`#${item.toLowerCase()}`} className={baseStyles}>
+          {item}
+        </a>
+      ))}
+    </>
+  );
+};
+
+const AuthButtons = ({ mobile, navigate }: { mobile?: boolean, navigate: (path: string) => void }) => {
+  const containerStyles = mobile ? "space-y-2" : "space-x-4";
+  
+  return (
+    <div className={containerStyles}>
+      <button 
+        onClick={() => navigate('/auth')}
+        className="px-4 py-2 text-white hover:bg-white/10 rounded-md transition-colors"
+      >
+        Log In
+      </button>
+      <button 
+        onClick={() => navigate('/auth')}
+        className="px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white rounded-md transition-colors"
+      >
+        Sign Up
+      </button>
     </div>
   );
 };
 
-export default LandingPage;
+export default Navbar;
