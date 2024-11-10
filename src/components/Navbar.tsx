@@ -8,15 +8,13 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="fixed top-0 w-full z-20 bg-transparent">
+    <nav className="fixed top-4 w-full z-20 bg-transparent"> {/* Slightly lowered header */}
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          {/* Updated Logo Alignment */}
+        <div className="flex justify-between items-center h-20"> {/* Adjusted header height */}
+          
+          {/* Logo only, no text */}
           <Link to="/" className="flex items-center space-x-2">
-            <img src={SoulLogo} alt="Soul Logo" className="w-20 h-20" /> {/* Increased logo size */}
-            <span className="text-3xl font-bold bg-gradient-to-r from-rose-500 to-purple-600 text-transparent bg-clip-text">
-              Soul
-            </span>
+            <img src={SoulLogo} alt="Soul Logo" className="w-24 h-24" /> {/* Increased logo size */}
           </Link>
 
           {/* Desktop Navigation */}
