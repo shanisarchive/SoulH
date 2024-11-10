@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heart, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import SoulLogo from '../assets/Screenshot_2024-03-03_120833-removebg-preview.png';
 
@@ -8,15 +8,12 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="bg-white/10 backdrop-blur-md border-b border-white/20">
+    <nav className="absolute w-full top-0 z-20">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          {/* Updated Logo */}
+          {/* Updated Transparent Header with Larger Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <img src={SoulLogo} alt="Soul Logo" className="w-12 h-12 mr-2" /> {/* Increased size */}
-            <span className="text-2xl font-bold bg-gradient-to-r from-rose-500 to-purple-600 text-transparent bg-clip-text">
-              Soul
-            </span>
+            <img src={SoulLogo} alt="Soul Logo" className="w-16 h-16" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -27,7 +24,7 @@ const Navbar = () => {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden p-2 rounded-md text-gray-100 hover:bg-white/10"
+            className="md:hidden p-2 rounded-md text-white"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -52,8 +49,8 @@ const Navbar = () => {
 
 const NavLinks = ({ mobile }: { mobile?: boolean }) => {
   const baseStyles = mobile
-    ? "block px-3 py-2 rounded-md text-white hover:bg-white/10"
-    : "text-gray-100 hover:text-white transition-colors";
+    ? "block px-3 py-2 rounded-md text-white"
+    : "text-white hover:text-opacity-80 transition-colors";
 
   return (
     <>
