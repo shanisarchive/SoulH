@@ -8,7 +8,7 @@ import { useTheme } from '../hooks/useTheme';
 
 // Import your video and logo
 import videoBackground from '../assets/311876098316009475.mp4';
-
+import SoulLogo from '../assets/Screenshot_2024-03-03_120833-removebg-preview.png';
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
