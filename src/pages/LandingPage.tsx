@@ -5,8 +5,6 @@ import Navbar from '../components/Navbar';
 import Features from '../components/Features';
 import Footer from '../components/Footer';
 import { useTheme } from '../hooks/useTheme';
-
-// Import your video and logo
 import videoBackground from '../assets/311876098316009475.mp4';
 
 const LandingPage: React.FC = () => {
@@ -32,19 +30,12 @@ const LandingPage: React.FC = () => {
         Your browser does not support the video tag.
       </video>
 
-      {/* Transparent Navbar */}
+      {/* Fixed Navbar */}
       <Navbar />
 
-      {/* Centered "soul" Text with Glow Effect Above Hero Section */}
-      <div className="absolute top-1/3 w-full flex justify-center z-10">
-        <h1 className="text-8xl font-bold text-white opacity-90">
-          soul
-        </h1>
-      </div>
-
-      {/* Main Content */}
-      <div className="relative z-10 text-center text-white mt-40">
-        <main className="px-4 mt-12">
+      {/* Main Content Positioned Below the Navbar */}
+      <div className="relative z-10 text-center text-white pt-24"> {/* Added padding */}
+        <main className="px-4 mt-16">
           {/* Hero Section */}
           <section className="text-center mb-10">
             <h1 className="text-5xl font-bold mb-4 animate-fade-in">
