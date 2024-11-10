@@ -6,9 +6,8 @@ import Features from '../components/Features';
 import Footer from '../components/Footer';
 import { useTheme } from '../hooks/useTheme';
 
-// Import your video and logo
+// Import your video background
 import videoBackground from '../assets/311876098316009475.mp4';
-import SoulLogo from '../assets/Screenshot_2024-03-03_120833-removebg-preview.png';
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -33,17 +32,14 @@ const LandingPage: React.FC = () => {
         Your browser does not support the video tag.
       </video>
 
-      {/* Transparent Navbar with Larger Logo */}
-      <div className="relative z-10 flex items-center justify-end px-8 py-4 bg-transparent">
-        <div className="absolute left-8 flex items-center">
-          <img src={SoulLogo} alt="Soul Logo" className="w-16 h-16 mr-2" /> {/* Larger Logo */}
-        </div>
-        <Navbar />
+      {/* Sticky Navbar */}
+      <div className="sticky top-0 z-10">
+        <Navbar /> {/* Navbar now includes the logo and stays at the top while scrolling */}
       </div>
 
       {/* Centered "soul" Text with Glow Effect Above Hero Section */}
       <div className="absolute top-1/4 w-full flex justify-center z-10">
-        <h1 className="text-6xl md:text-7xl font-bold text-transparent animate-glow border border-blue-400 px-4 py-2 rounded-lg">
+        <h1 className="text-6xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400 animate-glow px-4 py-2 rounded-lg border border-transparent shadow-lg">
           soul
         </h1>
       </div>
