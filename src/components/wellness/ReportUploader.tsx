@@ -26,8 +26,8 @@ const ReportUploader: React.FC = () => {
           const data = await file.arrayBuffer();
           const parsedData = await pdfParse(data);
 
-          // Check if it’s a medical report
-          const isMedical = checkIfMedicalReport(parsedData.text);
+          // Improved medical report check
+          const isMedical = improvedMedicalReportCheck(parsedData.text);
           setIsMedicalReport(isMedical);
 
           if (isMedical) {
@@ -47,19 +47,24 @@ const ReportUploader: React.FC = () => {
     }
   };
 
-  const checkIfMedicalReport = (text: string) => {
-    const medicalKeywords = ['blood pressure', 'heart rate', 'diagnosis', 'treatment', 'symptoms', 'prescription'];
-    return medicalKeywords.some(keyword => text.toLowerCase().includes(keyword));
+  const improvedMedicalReportCheck = (text: string) => {
+    const medicalKeywords = [
+      'blood pressure', 'heart rate', 'diagnosis', 'treatment', 'symptoms', 
+      'prescription', 'test result', 'imaging', 'ECG', 'cholesterol', 'hemoglobin'
+    ];
+    const medicalSections = [
+      'Lab Results', 'Diagnostic Imaging', 'Assessment', 'Prescription', 'Medication'
+    ];
+
+    // Check for the presence of multiple medical keywords and sections
+    const keywordMatchCount = medicalKeywords.filter(keyword => text.toLowerCase().includes(keyword)).length;
+    const sectionMatchCount = medicalSections.filter(section => text.toLowerCase().includes(section.toLowerCase())).length;
+
+    // Require at least 3 keyword matches and 1 section match for stronger confidence
+    return keywordMatchCount >= 3 && sectionMatchCount >= 1;
   };
 
   const analyzeMedicalContent = (text: string) => {
-    // Example mock analysis, comparing against disease database
-    const mockAnalysis = matchSymptomsToDiseases(text);
-    return mockAnalysis;
-  };
-
-  const matchSymptomsToDiseases = (text: string) => {
-    // Load and parse CSV file with disease-symptom data (assumes async loading or preloaded data)
     const diseaseDatabase = [
       { disease: 'Hypertension', symptoms: ['high blood pressure', 'headache', 'dizziness'] },
       { disease: 'Diabetes', symptoms: ['high blood sugar', 'thirst', 'frequent urination'] },
