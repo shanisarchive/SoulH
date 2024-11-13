@@ -1,20 +1,86 @@
 import React, { useState } from 'react';
 import { Upload, FileText, Check, AlertCircle } from 'lucide-react';
+import pdfParse from 'pdf-parse';
+import Papa from 'papaparse';
 
-const ReportUploader = () => {
+const ReportUploader: React.FC = () => {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [analyzing, setAnalyzing] = useState(false);
+  const [analysisResults, setAnalysisResults] = useState<string | null>(null);
+  const [isMedicalReport, setIsMedicalReport] = useState<boolean | null>(null);
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
     setUploadedFiles([...uploadedFiles, ...files]);
+
     setAnalyzing(true);
-    // Simulate analysis delay
-    setTimeout(() => setAnalyzing(false), 2000);
+    const results = await analyzeFiles(files);
+    setAnalysisResults(results);
+    setAnalyzing(false);
+  };
+
+  const analyzeFiles = async (files: File[]) => {
+    for (const file of files) {
+      if (file.type === 'application/pdf') {
+        try {
+          const data = await file.arrayBuffer();
+          const parsedData = await pdfParse(data);
+
+          // Check if it’s a medical report
+          const isMedical = checkIfMedicalReport(parsedData.text);
+          setIsMedicalReport(isMedical);
+
+          if (isMedical) {
+            // Perform further analysis if it's a medical report
+            const analysis = analyzeMedicalContent(parsedData.text);
+            return analysis;
+          } else {
+            return "This file does not appear to be a medical report.";
+          }
+        } catch (error) {
+          console.error("Error parsing PDF:", error);
+          return "Error analyzing the file.";
+        }
+      } else {
+        return "Only PDF files are supported.";
+      }
+    }
+  };
+
+  const checkIfMedicalReport = (text: string) => {
+    const medicalKeywords = ['blood pressure', 'heart rate', 'diagnosis', 'treatment', 'symptoms', 'prescription'];
+    return medicalKeywords.some(keyword => text.toLowerCase().includes(keyword));
+  };
+
+  const analyzeMedicalContent = (text: string) => {
+    // Example mock analysis, comparing against disease database
+    const mockAnalysis = matchSymptomsToDiseases(text);
+    return mockAnalysis;
+  };
+
+  const matchSymptomsToDiseases = (text: string) => {
+    // Load and parse CSV file with disease-symptom data (assumes async loading or preloaded data)
+    const diseaseDatabase = [
+      { disease: 'Hypertension', symptoms: ['high blood pressure', 'headache', 'dizziness'] },
+      { disease: 'Diabetes', symptoms: ['high blood sugar', 'thirst', 'frequent urination'] },
+      // Add more disease-symptom mappings as needed
+    ];
+
+    const detectedConditions = diseaseDatabase
+      .filter(disease => disease.symptoms.some(symptom => text.toLowerCase().includes(symptom)))
+      .map(disease => disease.disease);
+
+    if (detectedConditions.length > 0) {
+      return `Possible conditions: ${detectedConditions.join(', ')}`;
+    } else {
+      return "No specific conditions matched.";
+    }
   };
 
   const removeFile = (index: number) => {
     setUploadedFiles(uploadedFiles.filter((_, i) => i !== index));
+    setIsMedicalReport(null);
+    setAnalysisResults(null);
   };
 
   return (
@@ -29,7 +95,7 @@ const ReportUploader = () => {
             <input
               type="file"
               className="hidden"
-              accept=".pdf,.jpg,.png,.doc,.docx"
+              accept=".pdf"
               multiple
               onChange={handleFileUpload}
             />
@@ -74,22 +140,10 @@ const ReportUploader = () => {
         </div>
       )}
 
-      {uploadedFiles.length > 0 && !analyzing && (
-        <div className="bg-white border rounded-lg p-6">
-          <div className="flex items-center space-x-2 mb-4">
-            <Check className="h-5 w-5 text-green-500" />
-            <h3 className="text-lg font-semibold text-gray-900">Analysis Complete</h3>
-          </div>
-          <div className="space-y-4">
-            <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-              <p className="text-green-800">Key Findings:</p>
-              <ul className="mt-2 space-y-1 list-disc list-inside text-green-700">
-                <li>All vital signs within normal range</li>
-                <li>No significant abnormalities detected</li>
-                <li>Regular follow-up recommended</li>
-              </ul>
-            </div>
-          </div>
+      {analysisResults && (
+        <div className="bg-white border rounded-lg p-6 mt-4">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Analysis Results</h3>
+          <p className="text-gray-700">{analysisResults}</p>
         </div>
       )}
     </div>
@@ -97,4 +151,3 @@ const ReportUploader = () => {
 };
 
 export default ReportUploader;
-
