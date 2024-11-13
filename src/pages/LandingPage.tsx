@@ -30,11 +30,13 @@ const LandingPage: React.FC = () => {
         Your browser does not support the video tag.
       </video>
 
-      {/* Fixed Navbar */}
-      <Navbar />
+      {/* Fixed Navbar at Top */}
+      <div className="fixed top-0 w-full z-20">
+        <Navbar />
+      </div>
 
       {/* Main Content Positioned Below the Navbar */}
-      <div className="relative z-10 text-center text-white pt-24"> {/* Added padding */}
+      <div className="relative z-10 text-center text-white pt-24"> {/* Added padding for space under fixed navbar */}
         <main className="px-4 mt-16">
           {/* Hero Section */}
           <section className="text-center mb-10">
@@ -78,12 +80,8 @@ const LandingPage: React.FC = () => {
           </section>
         </main>
 
-        {/* Footer with Copyright */}
-        <Footer>
-          <div className="text-center py-4 text-white/70 text-sm">
-            © 2024 Soul. All rights reserved.
-          </div>
-        </Footer>
+        {/* Footer */}
+        <Footer />
       </div>
     </div>
   );
