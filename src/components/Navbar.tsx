@@ -8,13 +8,13 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="fixed top-4 w-full z-20 bg-transparent"> {/* Slightly lowered header */}
+    <nav className="fixed top-4 w-full z-20 bg-transparent">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-20"> {/* Adjusted header height */}
+        <div className="flex justify-between items-center h-20">
           
-          {/* Logo only, no text */}
+          {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <img src={SoulLogo} alt="Soul Logo" className="w-24 h-24" /> {/* Increased logo size */}
+            <img src={SoulLogo} alt="Soul Logo" className="w-24 h-24" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -48,6 +48,7 @@ const Navbar = () => {
   );
 };
 
+// Updated NavLinks to use Link components for internal navigation
 const NavLinks = ({ mobile }: { mobile?: boolean }) => {
   const baseStyles = mobile
     ? "block px-3 py-2 rounded-md text-white hover:bg-white/10"
@@ -55,12 +56,23 @@ const NavLinks = ({ mobile }: { mobile?: boolean }) => {
 
   return (
     <>
-      {["Home", "Features", "Pricing", "About", "Contact Us"].map((item) => (
-        <a key={item} href={`#${item.toLowerCase()}`} className={baseStyles}>
-          {item}
-        </a>
-      ))}
-      {/* Add Privacy Policy Link */}
+      {/* Use Link components for client-side navigation */}
+      <Link to="/" className={baseStyles}>
+        Home
+      </Link>
+      <a href="#features" className={baseStyles}>
+        Features
+      </a>
+      <a href="#pricing" className={baseStyles}>
+        Pricing
+      </a>
+      <a href="#about" className={baseStyles}>
+        About
+      </a>
+      <a href="#contact" className={baseStyles}>
+        Contact Us
+      </a>
+      {/* Privacy Policy Link */}
       <Link to="/privacy" className={baseStyles}>
         Privacy Policy
       </Link>
