@@ -60,13 +60,17 @@ const NavLinks = ({ mobile }: { mobile?: boolean }) => {
           {item}
         </a>
       ))}
+      {/* Add Privacy Policy Link */}
+      <Link to="/privacy" className={baseStyles}>
+        Privacy Policy
+      </Link>
     </>
   );
 };
 
-const AuthButtons = ({ mobile, navigate }: { mobile?: boolean, navigate: (path: string) => void }) => {
+const AuthButtons = ({ mobile, navigate }: { mobile?: boolean; navigate: (path: string) => void }) => {
   const containerStyles = mobile ? "space-y-2" : "space-x-4";
-  
+
   return (
     <div className={containerStyles}>
       <button 
