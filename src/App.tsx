@@ -9,8 +9,8 @@ import Dashboard from './pages/Dashboard';
 import WellnessTracker from './pages/WellnessTracker';
 import WellbeingJournal from './pages/WellbeingJournal';
 import HealthReport from './pages/HealthReport';
+import PrivacyPolicy from './pages/PrivacyPolicy'; // Import the PrivacyPolicy component
 import ProtectedRoute from './components/ProtectedRoute';
-import PrivacyPolicy from './pages/PrivacyPolicy';  // Import the PrivacyPolicy component
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/auth" element={<AuthPage />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} /> {/* Add PrivacyPolicy route */}
+          <Route path="/privacy" element={<PrivacyPolicy />} /> {/* Privacy Policy route */}
           <Route
             path="/onboarding"
             element={
