@@ -11,8 +11,14 @@ const LandingPage: React.FC = () => {
   const navigate = useNavigate();
   const { timeOfDay, styles } = useTheme();
 
+  // Navigate to Auth page
   const handleGetStarted = () => {
     navigate('/auth');
+  };
+
+  // Navigate to Privacy Policy page
+  const handlePrivacyPolicyClick = () => {
+    navigate('/privacy-policy');  // Make sure this route is set up in your routing file
   };
 
   return (
@@ -70,7 +76,7 @@ const LandingPage: React.FC = () => {
                 All data processing happens on your device. Zero backend, zero server-side processing, complete privacy guaranteed.
               </p>
               <button
-                onClick={handleGetStarted}
+                onClick={handlePrivacyPolicyClick}  // Updated to handlePrivacyPolicyClick
                 className="inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-all transform hover:scale-105"
               >
                 Learn About Our Privacy
