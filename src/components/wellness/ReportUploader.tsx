@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Upload, FileText, Check, AlertCircle } from 'lucide-react';
 import pdfParse from 'pdf-parse';
-import Papa from 'papaparse';
 
 const ReportUploader: React.FC = () => {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
@@ -25,6 +24,11 @@ const ReportUploader: React.FC = () => {
         try {
           const data = await file.arrayBuffer();
           const parsedData = await pdfParse(data);
+
+          // Ensure text content is parsed
+          if (!parsedData.text) {
+            return "Error: Could not extract text from PDF. Please check the file format.";
+          }
 
           // Improved medical report check
           const isMedical = improvedMedicalReportCheck(parsedData.text);
@@ -56,11 +60,11 @@ const ReportUploader: React.FC = () => {
       'Lab Results', 'Diagnostic Imaging', 'Assessment', 'Prescription', 'Medication'
     ];
 
-    // Check for the presence of multiple medical keywords and sections
+    // Check for multiple keywords and sections
     const keywordMatchCount = medicalKeywords.filter(keyword => text.toLowerCase().includes(keyword)).length;
     const sectionMatchCount = medicalSections.filter(section => text.toLowerCase().includes(section.toLowerCase())).length;
 
-    // Require at least 3 keyword matches and 1 section match for stronger confidence
+    // Require 3+ keyword matches and 1+ section match
     return keywordMatchCount >= 3 && sectionMatchCount >= 1;
   };
 
@@ -76,9 +80,9 @@ const ReportUploader: React.FC = () => {
       .map(disease => disease.disease);
 
     if (detectedConditions.length > 0) {
-      return `Possible conditions: ${detectedConditions.join(', ')}`;
+      return `Analysis Complete\n\nKey Findings:\n- Possible conditions: ${detectedConditions.join(', ')}\n- Follow-up recommended based on findings.`;
     } else {
-      return "No specific conditions matched.";
+      return "No specific conditions matched. Regular monitoring recommended.";
     }
   };
 
@@ -146,9 +150,9 @@ const ReportUploader: React.FC = () => {
       )}
 
       {analysisResults && (
-        <div className="bg-white border rounded-lg p-6 mt-4">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Analysis Results</h3>
-          <p className="text-gray-700">{analysisResults}</p>
+        <div className="bg-green-50 border border-green-200 rounded-lg p-6 mt-4">
+          <h3 className="text-lg font-semibold text-green-900 mb-4">Analysis Complete</h3>
+          <p className="text-gray-700 whitespace-pre-line">{analysisResults}</p>
         </div>
       )}
     </div>
