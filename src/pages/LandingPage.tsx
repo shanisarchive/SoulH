@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import Features from '../components/Features';
 import Footer from '../components/Footer';
 import { useTheme } from '../hooks/useTheme';
-import videoBackground from '../assets/311876098316009475.mp4';
+import videoBackground from '../assets/Minimalist Yoga Registration Landing Page (1).mp4';
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
